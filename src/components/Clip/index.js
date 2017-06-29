@@ -258,6 +258,7 @@ component.methods.addedFile = function (file) {
  */
 component.methods.removedFile = function ({ blobId }) {
   const fileInstance = this.getFile(blobId)
+  if(!fileInstance.updateStatus) return
   fileInstance.updateStatus('removed')
   this.onRemovedFile(fileInstance)
 }
@@ -283,6 +284,7 @@ component.methods.sending = function ({ blobId }, xhr, formData) {
  */
 component.methods.complete = function ({ blobId, status, xhr = {} }) {
   const fileInstance = this.getFile(blobId)
+  if(!fileInstance.updateStatus) return
   fileInstance.updateStatus(status)
   fileInstance.updateXhrResponse({
     response: xhr.response,
@@ -302,6 +304,7 @@ component.methods.complete = function ({ blobId, status, xhr = {} }) {
  */
 component.methods.error = function ({ blobId, status }, errorMessage) {
   const fileInstance = this.getFile(blobId)
+  if(!fileInstance.updateStatus) return
   fileInstance.updateStatus(status)
   fileInstance.updateErrorMessage(errorMessage)
 }
@@ -315,6 +318,7 @@ component.methods.error = function ({ blobId, status }, errorMessage) {
  */
 component.methods.uploadProgress = function ({ blobId }, progress, bytesSent) {
   const fileInstance = this.getFile(blobId)
+  if(!fileInstance.updateProgress) return
   fileInstance.updateProgress(progress)
   fileInstance.updateBytesSent(bytesSent)
 }
@@ -327,6 +331,7 @@ component.methods.uploadProgress = function ({ blobId }, progress, bytesSent) {
  */
 component.methods.thumbnail = function ({ blobId }, dataUrl) {
   const fileInstance = this.getFile(blobId)
+  if(!fileInstance.updateDataUrl) return
   fileInstance.updateDataUrl(dataUrl)
 }
 
